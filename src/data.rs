@@ -72,4 +72,13 @@ impl SongDatabase {
         
         db
     }
+    
+    pub fn get_all_songs(&self) -> Vec<Song> {
+        let songs = self.songs.lock().unwrap();
+        songs.clone() // returns a new Vec<Song> with cloned songs
+    }
+    
+    pub fn find_by_title(&self, title: &str) -> Option<Song> {
+        
+    }
 }
