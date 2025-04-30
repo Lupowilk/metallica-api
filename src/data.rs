@@ -79,6 +79,9 @@ impl SongDatabase {
     }
     
     pub fn find_by_title(&self, title: &str) -> Option<Song> {
-        
+        let songs = self.songs.lock().unwrap();
+        songs.iter().find(|song| {
+            song.title.to_lowercase() == title.to_lowercase()
+        }).cloned()
     }
 }
