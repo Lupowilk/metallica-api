@@ -84,4 +84,18 @@ impl SongDatabase {
             song.title.to_lowercase() == title.to_lowercase()
         }).cloned()
     }
+    
+    pub fn get_all_albums(&self) -> Vec<String> {
+        let songs = self.songs.lock().unwrap();
+        
+        let mut albums: Vec<String> = songs.iter()
+            .map(|song| song.album.clone())
+            .collect();
+        
+        albums.sort();
+        
+        albums.dedup();
+        
+        albums
+    }
 }
