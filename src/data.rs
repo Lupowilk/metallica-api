@@ -85,6 +85,7 @@ impl SongDatabase {
         }).cloned()
     }
     
+    //A method to get all metallica songs in the API
     pub fn get_all_albums(&self) -> Vec<String> {
         let songs = self.songs.lock().unwrap();
         
