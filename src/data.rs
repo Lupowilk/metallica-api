@@ -99,4 +99,16 @@ impl SongDatabase {
         
         albums
     }
+    
+    //A method that can find all songs from a specific album
+    pub fn get_songs_by_album(&self, album: &str) -> Vec<Song> {
+        let songs = self.songs.lock().unwrap();
+        let album_songs: Vec<Song> = songs.iter()
+            .filter( |song| song.album.to_lowercase() == album.to_lowercase())
+            .cloned()
+            .collect();
+        
+        album_songs
+    } 
+    
 }
