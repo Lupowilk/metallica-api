@@ -24,3 +24,18 @@ async fn get_song_by_title(db: web::Data<SongDatabase>, title: web::Path<String>
         HttpResponse::NotFound().body("Song not found")
     }
 }
+
+// A handler that returns a list of all unique album names
+#[get("/albums")]
+async fn get_albums(db: web::Data<SongDatabase>) -> impl Responder {
+    let album_title = db.get_all_albums(); 
+    HttpResponse::Ok().json(album_title)
+} 
+
+//A handler that allow users to see all songs from a specific Metallica album
+#[get("/albums/{name}")]
+async fn get_songs_by_album(db: web::Data<SongDatabase>,album: web::Path<String> ) -> impl Responder {
+    let album_title = album.into_inner();
+    let selected_album = db.get_songs_by_album(&album_title);
+    HttpResponse::Ok().json(selected_album)
+}
