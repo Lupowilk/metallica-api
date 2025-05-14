@@ -39,3 +39,12 @@ async fn get_songs_by_album(db: web::Data<SongDatabase>,album: web::Path<String>
     let selected_album = db.get_songs_by_album(&album_title);
     HttpResponse::Ok().json(selected_album)
 }
+
+//A function that registers incoming routing
+pub fn config_routes (cfg: &mut web::ServiceConfig) {
+    cfg.service(get_songs);
+    cfg.service(get_song_by_title);
+    cfg.service(get_albums);
+    cfg.service(get_songs_by_album);
+}
+
