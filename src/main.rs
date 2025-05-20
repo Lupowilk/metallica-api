@@ -1,5 +1,5 @@
 mod model;
-mod data;
+mod routes;
 
 fn main() {
     println!("Hello, world!");
