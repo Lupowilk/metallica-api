@@ -112,3 +112,38 @@ impl SongDatabase {
     } 
     
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    
+    #[test]
+    fn test_new_db() {
+        // test creating a new empty database
+        let db = SongDatabase::new_db();
+        let songs = db.get_all_songs();
+        assert_eq!(songs.len(), 0);
+    }
+    
+    #[test]
+    fn test_init_sample_db() {
+        // test creating a database with sample data
+        let db = SongDatabase::init_sample_db();
+        let songs = db.get_all_songs();
+        assert_eq!(songs.len(), 6);
+    }
+    
+    #[test]
+    fn test_find_by_title_existing_song() {
+        //Test finding a song that exists
+        let db = SongDatabase::init_sample_db();
+        let song = db.find_by_title("Enter Sandman");
+        assert!(song.is_some());
+        let found_song =song.unwrap();
+        assert_eq!(found_song.title, "Enter Sandman");
+        assert_eq!(found_song.album, "Metallica");
+    }
+    
+    
+}
