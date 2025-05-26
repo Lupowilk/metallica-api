@@ -144,6 +144,34 @@ mod tests {
         assert_eq!(found_song.title, "Enter Sandman");
         assert_eq!(found_song.album, "Metallica");
     }
-    
+
+    #[test]
+    fn test_get_all_albums() {
+        // Test getting all unique album names
+        let db = SongDatabase::init_sample_db();
+        let albums = db.get_all_albums();
+
+        // We should have 5 unique albums in our sample data
+        assert_eq!(albums.len(), 5);
+
+        // Check that albums are sorted and contain expected names
+        assert!(albums.contains(&"Metallica".to_string()));
+        assert!(albums.contains(&"Master of Puppets".to_string()));
+    }
+
+    #[test]
+    fn test_get_songs_by_album() {
+        // Test getting songs from a specific album
+        let db = SongDatabase::init_sample_db();
+        let metallica_songs = db.get_songs_by_album("Metallica");
+
+        // The "Metallica" album should have 2 songs
+        assert_eq!(metallica_songs.len(), 2);
+
+        // Both songs should be from the Metallica album
+        for song in metallica_songs {
+            assert_eq!(song.album, "Metallica");
+        }
+    }
     
 }
